@@ -18,7 +18,9 @@ if (config.env === 'dev') {
 }
 
 exports.connect = () => {
-  mongoose.connect(config.mongo.uri, {
+  var mongoURI = (config.env === 'prod' || 'dev' ? config.mongo.uri : config.mongo.testURI)
+
+  mongoose.connect(mongoURI, {
     keepAlive: 1
   })
 

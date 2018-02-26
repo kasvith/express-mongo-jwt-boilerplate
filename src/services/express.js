@@ -15,7 +15,8 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cors())
 app.use(helmet())
-app.use(morgan('combined'))
+
+if (config.env !== 'test') app.use(morgan('combined'))
 
 // passport
 app.use(passport.initialize())
@@ -35,3 +36,5 @@ exports.start = () => {
     console.log(`${config.app} is running on ${config.port}`)
   })
 }
+
+exports.app = app
