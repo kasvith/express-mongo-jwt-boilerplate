@@ -3,3 +3,7 @@ node_js:
   - "stable"
 services:
   - mongodb
+
+cache:
+  directories:
+    - node_modules
