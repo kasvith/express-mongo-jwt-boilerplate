@@ -5,18 +5,22 @@
   "main": "index.js",
   "scripts": {
     "dev": "./node_modules/.bin/nodemon src/index.js",
-    "lint": "./node_modules/.bin/eslint **/*.js"
+    "lint": "./node_modules/.bin/eslint **/*.js",
+    "test": "./node_modules/.bin/mocha --exit"
   },
   "keywords": [],
   "author": "Kasun Vithanage",
   "license": "MIT",
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "eslint": "^4.17.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^5.0.1",
     "nodemon": "^1.14.12"
   },
   "dependencies": {
@@ -31,7 +35,7 @@
     "http-status": "^1.0.1",
     "joi": "^13.1.2",
     "jsonwebtoken": "^8.1.1",
-    "mongoose": "^5.0.4",
+    "mongoose": "^5.0.7",
     "mongoose-error-handler": "^1.0.0",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",

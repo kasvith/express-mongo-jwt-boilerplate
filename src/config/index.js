@@ -6,6 +6,7 @@ module.exports = {
   env: process.env.NODE_ENV,
   secret: process.env.APP_SECRET,
   mongo: {
-    uri: process.env.MONGOURI
+    uri: process.env.MONGOURI,
+    testURI: process.env.MONGOTESTURI
   }
 }
