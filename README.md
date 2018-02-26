@@ -1,5 +1,7 @@
 # Express Mongo JWT Boilerplate
 
+[![Build Status](https://travis-ci.org/kasvith/express-mongo-jwt-boilerplate.svg?branch=master)](https://travis-ci.org/kasvith/express-mongo-jwt-boilerplate)
+
 ## Installation
 
 - Install NodeJS, MongoDB
