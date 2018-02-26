@@ -19,4 +19,14 @@ describe('Application', () => {
         done()
       })
   })
+
+  it('It should return HTTP NOTFOUND', (done) => {
+    chai
+      .request(app)
+      .get('/something/not/exists')
+      .end((err, res) => {
+        res.should.have.status(404)
+        done()
+      })
+  })
 })
