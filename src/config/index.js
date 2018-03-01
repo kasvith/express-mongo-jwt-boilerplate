@@ -1,5 +1,4 @@
-if(process.env.NODE_ENV !== 'test')
-  require('dotenv-safe').config()
+require('dotenv').config()
 
 module.exports = {
   port: process.env.PORT,
