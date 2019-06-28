@@ -1,10 +1,14 @@
 'use strict'
+
 const express = require('express')
 const router = express.Router()
-const authRouter = require('./api/user.route')
+const userRouter = require('./api/user.route')
+const authRouter = require('./api/auth.route')
 
-router.get('/status', (req, res) => { res.send({status: 'OK'}) }) // api status
+// api status
+router.get('/status', (req, res) => { res.send({status: 'OK'}) })
 
-router.use('/auth', authRouter) // mount auth paths
+router.use('/user', userRouter)
+router.use('/auth', authRouter)
 
 module.exports = router

@@ -70,7 +70,7 @@ userSchema.post('save', async function saved (doc, next) {
       from: 'noreply',
       to: this.email,
       subject: 'Confirm creating account',
-      html: `<div><h1>Hello new user!</h1><p>Click <a href="http://localhost:3000/api/auth/confirm?key=${this.activationKey}">link</a> to activate your new account.</p></div><div><h1>Hello developer!</h1><p>Feel free to change this template ;).</p></div>`
+      html: `<div><h1>Hello new user!</h1><p>Click <a href="http://localhost:3000/api/user/confirm?key=${this.activationKey}">link</a> to activate your new account.</p></div><div><h1>Hello developer!</h1><p>Feel free to change this template ;).</p></div>`
     }
 
     transporter.sendMail(mailOptions, function (error, info) {
