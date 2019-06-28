@@ -21,8 +21,11 @@ exports.connect = () => {
   var mongoURI = (config.env === 'prod' || 'dev' ? config.mongo.uri : config.mongo.testURI)
 
   mongoose.connect(mongoURI, {
-    keepAlive: 1
+    keepAlive: 1,
+    useNewUrlParser: true
   })
+
+  mongoose.set('useCreateIndex', true)
 
   return mongoose.connection
 }
