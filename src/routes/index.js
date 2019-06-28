@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
 const router = express.Router()
-const authRouter = require('./auth.route')
+const authRouter = require('./api/user.route')
 
 router.get('/status', (req, res) => { res.send({status: 'OK'}) }) // api status
 
