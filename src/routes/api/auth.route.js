@@ -9,6 +9,7 @@ const auth = require('../../middlewares/authorization')
 
 router.post('/register', validator(create), authController.register) // validate and register
 router.post('/login', authController.login) // login
+router.get('/confirm', authController.confirm)
 
 // Authentication example
 router.get('/secret1', auth(), (req, res) => {
