@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
 const httpStatus = require('http-status')
 const APIError = require('../utils/APIError')
+const transporter = require('../services/transporter')
 const Schema = mongoose.Schema
 
 const roles = [
@@ -25,6 +26,14 @@ const userSchema = new Schema({
   name: {
     type: String,
     maxlength: 50
+  },
+  activationKey: {
+    type: String,
+    unique: true
+  },
+  active: {
+    type: Boolean,
+    default: false
   },
   role: {
     type: String,
@@ -49,10 +58,39 @@ userSchema.pre('save', async function save (next) {
   }
 })
 
+userSchema.post('save', async function saved (doc, next) {
+  try {
+    console.log('after save is called')
+    if (!this.isModified('activationKey')) {
+      console.log('Not modified.. but what does it mean?')
+      //return next()
+    }
+
+    const mailOptions = {
+      from: 'noreply',
+      to: this.email,
+      subject: 'Confirm creating account',
+      html: `<div><h1>Hello new user!</h1><p>Click <a href="http://localhost:3000/api/auth/confirm?key=${this.activationKey}">link</a> to activate your new account.</p></div><div><h1>Hello developer!</h1><p>Feel free to change this template ;).</p></div>`
+    }
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log('Email sent: ' + info.response)
+      }
+    })
+
+    return next()
+  } catch (error) {
+    return next(error)
+  }
+})
+
 userSchema.method({
   transform () {
     const transformed = {}
-    const fields = ['id', 'name', 'email', 'createdAt', 'role']
+    const fields = ['id', 'name', 'email', 'createdAt', 'activationKey', 'role']
 
     fields.forEach((field) => {
       transformed[field] = this[field]
