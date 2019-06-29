@@ -60,12 +60,6 @@ userSchema.pre('save', async function save (next) {
 
 userSchema.post('save', async function saved (doc, next) {
   try {
-    console.log('after save is called')
-    if (!this.isModified('activationKey')) {
-      console.log('Not modified.. but what does it mean?')
-      //return next()
-    }
-
     const mailOptions = {
       from: 'noreply',
       to: this.email,
@@ -90,7 +84,7 @@ userSchema.post('save', async function saved (doc, next) {
 userSchema.method({
   transform () {
     const transformed = {}
-    const fields = ['id', 'name', 'email', 'createdAt', 'activationKey', 'role']
+    const fields = ['id', 'name', 'email', 'createdAt', 'role']
 
     fields.forEach((field) => {
       transformed[field] = this[field]
