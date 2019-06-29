@@ -21,6 +21,10 @@ const adminSchema = new Schema({
   name: {
     type: String,
     maxlength: 50
+  },
+  admin: {
+    type: Boolean,
+    default: true
   }
 }, {
   timestamps: true
@@ -37,6 +41,23 @@ adminSchema.pre('save', async function save (next) {
     return next()
   } catch (error) {
     return next(error)
+  }
+})
+
+adminSchema.method({
+  transform () {
+    const transformed = {}
+    const fields = ['id', 'name', 'email', 'createdAt']
+
+    fields.forEach((field) => {
+      transformed[field] = this[field]
+    })
+
+    return transformed
+  },
+
+  passwordMatches (password) {
+    return bcrypt.compareSync(password, this.password)
   }
 })
 
