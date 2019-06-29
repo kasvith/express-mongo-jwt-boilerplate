@@ -11,8 +11,5 @@ router.get('/secret1', auth(), (req, res) => {
 router.get('/secret2', auth(['admin']), (req, res) => {
   res.json({ message: 'Only admin can access' })
 })
-router.get('/secret3', auth(['user']), (req, res) => {
-  res.json({ message: 'Only user can access' })
-})
 
 module.exports = router
