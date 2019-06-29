@@ -11,8 +11,7 @@ const handleJWT = (req, res, next, roles) => async (err, user, info) => {
   const error = err || info
   const logIn = bluebird.promisify(req.logIn)
   const apiError = new APIError(
-    error ? error.message : 'Unauthorized',
-    httpStatus.UNAUTHORIZED
+    error ? error.message : 'Unauthorized', httpStatus.UNAUTHORIZED
   )
 
   // log user in

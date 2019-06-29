@@ -2,6 +2,7 @@
 
 const config = require('../config')
 const User = require('../models/user.model')
+const Admin = require('../models/admin.model')
 const passportJWT = require('passport-jwt')
 
 const ExtractJwt = passportJWT.ExtractJwt
@@ -22,7 +23,16 @@ const jwtStrategy = new JwtStrategy(jwtOptions, (jwtPayload, done) => {
     if (user) {
       return done(null, user)
     } else {
-      return done(null, false)
+      Admin.findById(jwtPayload.sub, (err, admin) => {
+        if (err) {
+          return done(err, null)
+        }
+        if (admin) {
+          return done(null, admin)
+        } else {
+          return done(null, false)
+        }
+      })
     }
   })
 })

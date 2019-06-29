@@ -2,6 +2,7 @@
 
 const config = require('../config')
 const mongoose = require('mongoose')
+const seed = require('../utils/seed')
 mongoose.Promise = require('bluebird')
 
 mongoose.connection.on('connected', () => {
@@ -24,6 +25,8 @@ exports.connect = () => {
     keepAlive: 1,
     useNewUrlParser: true
   })
+
+  seed()
 
   mongoose.set('useCreateIndex', true)
 
