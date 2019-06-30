@@ -6,6 +6,7 @@ const APIError = require('../utils/APIError')
 const transporter = require('../services/transporter')
 const Schema = mongoose.Schema
 const hashPass = require('./utils/hashPass')
+const checkDuplicateEmailError = require('./utils/checkDuplicateEmailError')
 
 const roles = [
   'user', 'admin'
@@ -90,20 +91,7 @@ userSchema.method({
 userSchema.statics = {
   roles,
 
-  checkDuplicateEmailError (err) {
-    if (err.code === 11000) {
-      var error = new Error('Email already taken')
-      error.errors = [{
-        field: 'email',
-        location: 'body',
-        messages: ['Email already taken']
-      }]
-      error.status = httpStatus.CONFLICT
-      return error
-    }
-
-    return err
-  },
+  checkDuplicateEmailError,
 
   async findAndGenerateToken (payload) {
     const { email, password } = payload
