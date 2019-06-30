@@ -5,6 +5,7 @@ const httpStatus = require('http-status')
 const APIError = require('../utils/APIError')
 const transporter = require('../services/transporter')
 const Schema = mongoose.Schema
+const hashPass = require('./utils/hashPass')
 
 const roles = [
   'user', 'admin'
@@ -44,19 +45,7 @@ const userSchema = new Schema({
   timestamps: true
 })
 
-userSchema.pre('save', async function save (next) {
-  try {
-    if (!this.isModified('password')) {
-      return next()
-    }
-
-    this.password = bcrypt.hashSync(this.password)
-
-    return next()
-  } catch (error) {
-    return next(error)
-  }
-})
+hashPass(userSchema)
 
 userSchema.post('save', async function saved (doc, next) {
   try {

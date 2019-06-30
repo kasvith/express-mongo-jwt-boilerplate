@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt-nodejs')
 const httpStatus = require('http-status')
 const APIError = require('../utils/APIError')
 const Schema = mongoose.Schema
+const hashPass = require('./utils/hashPass')
 
 const adminSchema = new Schema({
   email: {
@@ -30,19 +31,7 @@ const adminSchema = new Schema({
   timestamps: true
 })
 
-adminSchema.pre('save', async function save (next) {
-  try {
-    if (!this.isModified('password')) {
-      return next()
-    }
-
-    this.password = bcrypt.hashSync(this.password)
-
-    return next()
-  } catch (error) {
-    return next(error)
-  }
-})
+hashPass(adminSchema)
 
 adminSchema.method({
   transform () {
