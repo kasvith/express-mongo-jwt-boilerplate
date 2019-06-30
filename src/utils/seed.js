@@ -1,4 +1,7 @@
+'use strict'
+
 const Admin = require('../models/admin.model')
+const config = require('../config')
 
 async function seed () {
   try {
@@ -6,9 +9,9 @@ async function seed () {
 
     if (count === 0) {
       const user = {
-        name: 'Admin',
-        email: 'admin@gmail.com',
-        password: 'admin123'
+        name: config.admin.name,
+        email: config.admin.email,
+        password: config.admin.password
       }
 
       const admin = new Admin(user)
