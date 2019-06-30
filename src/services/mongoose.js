@@ -10,7 +10,7 @@ mongoose.connection.on('connected', () => {
 
 mongoose.connection.on('error', (err) => {
   console.log(`Could not connect to MongoDB because of ${err}`)
-  process.exit(-1)
+  process.exit(1)
 })
 
 if (config.env === 'dev') {
