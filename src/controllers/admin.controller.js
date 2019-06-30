@@ -4,6 +4,7 @@ const Admin = require('../models/admin.model')
 const jwt = require('jsonwebtoken')
 const config = require('../config')
 const httpStatus = require('http-status')
+const generateToken = require('../models/utils/findAndGenerateToken')
 
 exports.register = async (req, res, next) => {
   try {
@@ -18,8 +19,8 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   try {
-    const admin = await Admin.findAndGenerateToken(req.body)
-    const payload = {sub: admin.id}
+    const admin = await generateToken(req.body, 'admin')
+    const payload = { sub: admin.id }
     const token = jwt.sign(payload, config.secret)
     return res.json({ message: 'OK', token: token })
   } catch (error) {

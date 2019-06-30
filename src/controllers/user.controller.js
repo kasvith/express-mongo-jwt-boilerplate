@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const config = require('../config')
 const httpStatus = require('http-status')
 const uuidv1 = require('uuid/v1')
+const generateToken = require('../models/utils/findAndGenerateToken')
 
 exports.register = async (req, res, next) => {
   try {
@@ -22,7 +23,7 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   try {
-    const user = await User.findAndGenerateToken(req.body)
+    const user = await generateToken(req.body, 'user')
     const payload = {sub: user.id}
     const token = jwt.sign(payload, config.secret)
     return res.json({ message: 'OK', token: token })
