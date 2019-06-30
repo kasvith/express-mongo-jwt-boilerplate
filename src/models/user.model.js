@@ -8,10 +8,6 @@ const Schema = mongoose.Schema
 const hashPass = require('./utils/hashPass')
 const checkDuplicateEmailError = require('./utils/checkDuplicateEmailError')
 
-const roles = [
-  'user', 'admin'
-]
-
 const userSchema = new Schema({
   email: {
     type: String,
@@ -36,11 +32,6 @@ const userSchema = new Schema({
   active: {
     type: Boolean,
     default: false
-  },
-  role: {
-    type: String,
-    default: 'user',
-    enum: roles
   }
 }, {
   timestamps: true
