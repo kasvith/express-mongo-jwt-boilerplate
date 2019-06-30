@@ -80,7 +80,6 @@ userSchema.method({
 })
 
 userSchema.statics = {
-  roles,
 
   checkDuplicateEmailError,
 
