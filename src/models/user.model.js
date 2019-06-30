@@ -1,8 +1,7 @@
 'use strict'
+
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
-const httpStatus = require('http-status')
-const APIError = require('../utils/APIError')
 const transporter = require('../services/transporter')
 const Schema = mongoose.Schema
 const hashPass = require('./utils/hashPass')
@@ -63,14 +62,10 @@ userSchema.post('save', async function saved (doc, next) {
 })
 
 userSchema.method({
-  transform () {
+  transform: function () {
     const transformed = {}
-    const fields = ['id', 'name', 'email', 'createdAt', 'role']
-
-    fields.forEach((field) => {
-      transformed[field] = this[field]
-    })
-
+    const fields = ['id', 'name', 'email', 'createdAt']
+    fields.forEach(field => { transformed[field] = this[field] })
     return transformed
   },
 
@@ -79,25 +74,6 @@ userSchema.method({
   }
 })
 
-userSchema.statics = {
-
-  checkDuplicateEmailError,
-
-  async findAndGenerateToken (payload) {
-    const { email, password } = payload
-    if (!email) throw new APIError('Email must be provided for login')
-
-    const user = await this.findOne({ email }).exec()
-    if (!user) throw new APIError(`No user associated with ${email}`, httpStatus.NOT_FOUND)
-
-    const passwordOK = await user.passwordMatches(password)
-
-    if (!passwordOK) throw new APIError(`Password mismatch`, httpStatus.UNAUTHORIZED)
-
-    if (!user.active) throw new APIError(`User not activated`, httpStatus.UNAUTHORIZED)
-
-    return user
-  }
-}
+userSchema.statics = { checkDuplicateEmailError }
 
 module.exports = mongoose.model('User', userSchema)

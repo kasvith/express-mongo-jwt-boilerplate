@@ -38,11 +38,7 @@ adminSchema.method({
   transform () {
     const transformed = {}
     const fields = ['id', 'name', 'email', 'createdAt']
-
-    fields.forEach((field) => {
-      transformed[field] = this[field]
-    })
-
+    fields.forEach((field) => { transformed[field] = this[field] })
     return transformed
   },
 
@@ -51,22 +47,6 @@ adminSchema.method({
   }
 })
 
-adminSchema.statics = {
-  checkDuplicateEmailError,
-
-  async findAndGenerateToken (payload) {
-    const { email, password } = payload
-    if (!email) throw new APIError('Email must be provided for login')
-
-    const user = await this.findOne({ email }).exec()
-    if (!user) throw new APIError(`No user associated with ${email}`, httpStatus.NOT_FOUND)
-
-    const passwordOK = await user.passwordMatches(password)
-
-    if (!passwordOK) throw new APIError(`Password mismatch`, httpStatus.UNAUTHORIZED)
-
-    return user
-  }
-}
+adminSchema.statics = { checkDuplicateEmailError }
 
 module.exports = mongoose.model('Admin', adminSchema)
