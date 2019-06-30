@@ -10,6 +10,11 @@
 - Run `yarn run dev` or `npm run dev`
 - Check `http://localhost:3000/api/status` to see it works
 
+## With Docker
+
+- Make sure you have installed `Docker` and `Docker Compose`
+- Just run `docker-compose up` to start the server
+
 ## Note when setting transporter in `.env`
 
 - TRANSPORTER_SERVICE can be for example `gmail` but also SMTP of your server

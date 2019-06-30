@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js",
     "dev": "./node_modules/.bin/nodemon src/index.js",
     "lint": "./node_modules/.bin/eslint **/*.js",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --exit"
