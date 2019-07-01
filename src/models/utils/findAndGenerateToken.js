@@ -22,7 +22,7 @@ async function findAndGenerateToken (payload, from) {
   const passwordOK = await user.passwordMatches(password)
 
   if (!passwordOK) throw new APIError(`Password mismatch`, httpStatus.UNAUTHORIZED)
-  if (from === 'admin' && !user.active) {
+  if (from === 'user' && !user.active) {
     throw new APIError(`User not activated`, httpStatus.UNAUTHORIZED)
   }
 
