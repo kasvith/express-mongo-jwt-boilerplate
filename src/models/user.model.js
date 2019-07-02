@@ -3,6 +3,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
 const transporter = require('../services/transporter')
+const config = require('../config')
 const Schema = mongoose.Schema
 const hashPass = require('./utils/hashPass')
 const checkDuplicateEmailError = require('./utils/checkDuplicateEmailError')
@@ -44,7 +45,7 @@ userSchema.post('save', async function saved (doc, next) {
       from: 'noreply',
       to: this.email,
       subject: 'Confirm creating account',
-      html: `<div><h1>Hello new user!</h1><p>Click <a href="http://localhost:3000/api/user/confirm?key=${this.activationKey}">link</a> to activate your new account.</p></div><div><h1>Hello developer!</h1><p>Feel free to change this template ;).</p></div>`
+      html: `<div><h1>Hello new user!</h1><p>Click <a href="${config.hostname}/api/user/confirm?key=${this.activationKey}">link</a> to activate your new account.</p></div><div><h1>Hello developer!</h1><p>Feel free to change this template ;).</p></div>`
     }
 
     transporter.sendMail(mailOptions, function (error, info) {
