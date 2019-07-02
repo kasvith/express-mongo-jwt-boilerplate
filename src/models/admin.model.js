@@ -1,8 +1,6 @@
 'use strict'
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
-const httpStatus = require('http-status')
-const APIError = require('../utils/APIError')
 const Schema = mongoose.Schema
 const hashPass = require('./utils/hashPass')
 const checkDuplicateEmailError = require('./utils/checkDuplicateEmailError')
