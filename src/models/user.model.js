@@ -37,7 +37,7 @@ const userSchema = new Schema({
   timestamps: true
 })
 
-hashPass(userSchema)
+hashPass(userSchema, 'save')
 
 userSchema.post('save', async function saved (doc, next) {
   try {

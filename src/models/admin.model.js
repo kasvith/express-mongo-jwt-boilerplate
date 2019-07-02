@@ -30,7 +30,7 @@ const adminSchema = new Schema({
   timestamps: true
 })
 
-hashPass(adminSchema)
+hashPass(adminSchema, 'save')
 
 adminSchema.method({
   transform () {

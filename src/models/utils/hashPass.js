@@ -2,8 +2,8 @@
 
 const bcrypt = require('bcrypt-nodejs')
 
-const hashPass = (schema) => {
-  schema.pre('save', async function save (next) {
+const hashPass = (schema, action) => {
+  schema.pre(action, async function save (next) {
     try {
       if (!this.isModified('password')) {
         return next()
