@@ -21,6 +21,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, (jwtPayload, done) => {
     }
 
     if (user) {
+      exports.user = user
       return done(null, user)
     } else {
       Admin.findById(jwtPayload.sub, (err, admin) => {
@@ -28,6 +29,7 @@ const jwtStrategy = new JwtStrategy(jwtOptions, (jwtPayload, done) => {
           return done(err, null)
         }
         if (admin) {
+          exports.user = admin
           return done(null, admin)
         } else {
           return done(null, false)
