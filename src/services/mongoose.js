@@ -29,6 +29,7 @@ exports.connect = () => {
   seed()
 
   mongoose.set('useCreateIndex', true)
+  mongoose.set('useFindAndModify', false)
 
   return mongoose.connection
 }
