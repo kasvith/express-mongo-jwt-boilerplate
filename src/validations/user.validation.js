@@ -16,6 +16,7 @@ module.exports = {
       _id: Joi.any().forbidden(),
       email: Joi.any().forbidden(),
       password: Joi.string().min(6).max(128),
+      newPassword: Joi.string().min(6).max(128),
       name: Joi.string().max(128),
       activationKey: Joi.any().forbidden(),
       active: Joi.any().forbidden(),

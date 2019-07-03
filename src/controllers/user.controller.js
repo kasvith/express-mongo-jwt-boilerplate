@@ -9,6 +9,7 @@ const generateToken = require('../models/utils/findAndGenerateToken')
 const passport = require('../services/passport')
 const bcrypt = require('bcrypt-nodejs')
 const transporter = require('../services/transporter')
+const APIError = require('../utils/APIError')
 
 exports.register = async (req, res, next) => {
   try {
@@ -37,14 +38,23 @@ exports.login = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
   try {
-    if (!passport.user) return res.status(httpStatus.FORBIDDEN)
+    if (!passport.user || !req.body.password) {
+      res.status(httpStatus.UNAUTHORIZED)
+      return res.send(new APIError(`Password mismatch`, httpStatus.UNAUTHORIZED))
+    }
+
     const user = await User.findOne({ 'email': passport.user.email }).exec()
-    if (!user.passwordMatches(req.body.password)) return res.status(httpStatus.FORBIDDEN)
-    if (req.body.password) req.body.password = bcrypt.hashSync(req.body.password)
+    if (!user.passwordMatches(req.body.password)) {
+      res.status(httpStatus.UNAUTHORIZED)
+      return res.send(new APIError(`Password mismatch`, httpStatus.UNAUTHORIZED))
+    }
+
+    if (req.body.newPassword) req.body.password = bcrypt.hashSync(req.body.newPassword)
     await User.findOneAndUpdate(
       { '_id': passport.user._id },
       { $set: req.body }
     )
+    return res.json({ message: 'OK' })
   } catch (error) {
     next(error)
   }
