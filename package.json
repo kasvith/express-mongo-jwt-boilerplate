@@ -33,7 +33,7 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
     "express-validation": "^1.0.2",
-    "helmet": "^3.11.0",
+    "helmet": "^3.21.1",
     "http-status": "^1.0.1",
     "joi": "^13.1.2",
     "jsonwebtoken": "^8.1.1",
