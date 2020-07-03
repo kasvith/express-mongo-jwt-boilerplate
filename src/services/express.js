@@ -7,7 +7,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const errorHandler = require('../middlewares/error-handler')
-const apiRouter = require('../routes/api')
+const apiRouter = require('../routes/index')
 const passport = require('passport')
 const passportJwt = require('../services/passport')
 

@@ -14,5 +14,10 @@ module.exports = {
     service: process.env.TRANSPORTER_SERVICE,
     email: process.env.TRANSPORTER_EMAIL,
     password: process.env.TRANSPORTER_PASSWORD
+  },
+  admin: {
+    name: process.env.DEFAULT_ADMIN_NAME,
+    email: process.env.DEFAULT_ADMIN_EMAIL,
+    password: process.env.DEFAULT_ADMIN_PASSWORD
   }
 }
