@@ -1,12 +1,15 @@
-const nodemailer = require('nodemailer')
-const config = require('../config')
+'use strict'
 
-const transporter = nodemailer.createTransport({
-  service: config.transporter.service,
+const nodemailer = require('nodemailer')
+const { host, port, username, password } = require('../config').transporter
+
+const transport = nodemailer.createTransport({
+  host: host,
+  port: port,
   auth: {
-    user: config.transporter.email,
-    pass: config.transporter.password
+    user: username,
+    pass: password
   }
 })
 
-module.exports = transporter
+module.exports = transport
